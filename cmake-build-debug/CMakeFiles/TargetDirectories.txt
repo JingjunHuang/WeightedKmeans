@@ -1,0 +1,4 @@
+/Users/timwong1/CLionProjects/kmeans/cmake-build-debug/CMakeFiles/test_k_means.dir
+/Users/timwong1/CLionProjects/kmeans/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/timwong1/CLionProjects/kmeans/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/timwong1/CLionProjects/kmeans/cmake-build-debug/CMakeFiles/k_means.dir
