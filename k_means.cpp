@@ -71,8 +71,8 @@ void Kmeans::update_labels() {
     for (Sample& sample : samples_){
         float minDistance = FLT_MAX;
         for(int i = 0;i<centers_.size();i++){
-            if (calc_square_weighted_distance(centers_, sample) < minDistance) {
-                minDistance = calc_square_weighted_distance(centers_[i].feature_, sample.feature_);
+            if (calc_square_weighted_distance(centers_[i], sample) < minDistance) {
+                minDistance = calc_square_weighted_distance(centers_[i], sample);
                 sample.label_ = i;
             }
         }
@@ -205,7 +205,7 @@ inline float calc_square_distance(const std::array<float, 3>& arr1,
 
 inline float calc_square_weighted_distance(const Center& center,
                                            const Sample& sample) {
-    float weight = 0.15;
+    float weight = 0.1;
     return std::pow((center.feature_[0] - sample.feature_[0]), 2)
            + std::pow((center.feature_[1] - sample.feature_[1]), 2)
            + std::pow((center.feature_[2] - sample.feature_[2]), 2)
