@@ -19,6 +19,8 @@ float check_convergence(const std::vector<Center>& current_centers,
 
 inline float calc_square_distance(const std::array<float, 3>& arr1,
                                   const std::array<float, 3>& arr2);
+inline float calc_square_weighted_distance(const Center& center,
+                                           const Sample& sample);
 
 /**
  * @brief Construct a new Kmeans object
@@ -54,60 +56,10 @@ void Kmeans::initialize_centers() {
 
     for (auto index : random_idx) {
         centers_[i_center].feature_ = samples_[index].feature_;
+        centers_[i_center].col_ = samples_[index].col_;
+        centers_[i_center].row_ = samples_[index].row_;
         i_center++;
     }
-
-
-    auto step = 10;
-    std::vector<std::vector<std::vector<int>>> rangeCount;
-    int a[26][26][26];
-
-    for(int i = 0;i<26;i++){
-        for(int j = 0;j<26;j++){
-            for(int k = 0;k<26;k++){
-                a[i][j][k] = 0;
-            }
-        }
-    }
-
-    for(Sample &sample:samples_){
-        auto i = (int)sample.feature_[0]/step;
-        auto j = (int)sample.feature_[1]/step;
-        auto k = (int)sample.feature_[2]/step;
-        a[i][j][k]++;
-    }
-
-
-
-//e.g. step == 10 ,  rangeCount[3][4][5] == 50
-//    rangeCount[10][10][10] = 10;
-//  概率密度法：
-//    auto radius = 255 /  centers_.size();
-//    std::cout<<"1"<<std::endl;
-//    for(int k = 0;k<centers_.size();k++){
-//        std::vector<int> countList;
-//        std::vector<std::vector<int>> map;
-//        std::cout<<"2"<<std::endl;
-//        for(auto i = samples_.begin(); i != samples_.end(); i++) {
-//            auto count = 0;
-//            std::vector<int> sampleInRadius;
-//            for(auto j = samples_.begin(); j != samples_.end(); j++) {
-//                std::cout<<i - samples_.begin()<<":"<<j - samples_.begin()<<std::endl;
-//                if(calc_square_distance(i->feature_,j->feature_) <= radius && j->label_ != -1){
-//                    count+=1;
-//                    sampleInRadius.push_back(j - samples_.begin());
-//                }
-//            }
-//            countList.push_back(count);
-//            map.push_back(sampleInRadius);
-//        }
-//        std::vector<int>::iterator maxDenSample = std::max_element(std::begin(countList), std::end(countList));
-//        auto maxDenSampleIndex = std::distance(std::begin(countList), maxDenSample);
-//        for(int filteredSampleIndex:map[maxDenSampleIndex]){
-//            samples_[filteredSampleIndex].label_ = k;
-//        }
-//    }
-//    update_centers();
 
 }
 
@@ -117,11 +69,10 @@ void Kmeans::initialize_centers() {
  */
 void Kmeans::update_labels() {
     for (Sample& sample : samples_){
-        // TODO update labels of each feature
         float minDistance = FLT_MAX;
         for(int i = 0;i<centers_.size();i++){
-            if (calc_square_distance(centers_[i].feature_, sample.feature_) < minDistance) {
-                minDistance = calc_square_distance(centers_[i].feature_, sample.feature_);
+            if (calc_square_weighted_distance(centers_, sample) < minDistance) {
+                minDistance = calc_square_weighted_distance(centers_[i].feature_, sample.feature_);
                 sample.label_ = i;
             }
         }
@@ -142,7 +93,6 @@ void Kmeans::update_centers() {
                 Filtered.push_back(sample);
             }
         }
-
 
         std::array<float,3> total{};
         for(Sample& filtered:Filtered){
@@ -251,6 +201,16 @@ inline float calc_square_distance(const std::array<float, 3>& arr1,
                                   const std::array<float, 3>& arr2) {
     return std::pow((arr1[0] - arr2[0]), 2) + std::pow((arr1[1] - arr2[1]), 2) +
            std::pow((arr1[2] - arr2[2]), 2);
+}
+
+inline float calc_square_weighted_distance(const Center& center,
+                                           const Sample& sample) {
+    float weight = 0.15;
+    return std::pow((center.feature_[0] - sample.feature_[0]), 2)
+           + std::pow((center.feature_[1] - sample.feature_[1]), 2)
+           + std::pow((center.feature_[2] - sample.feature_[2]), 2)
+           + std::pow((center.col_ - sample.col_) * weight, 2)
+           + std::pow((center.row_ - sample.row_) * weight, 2);
 }
 
 

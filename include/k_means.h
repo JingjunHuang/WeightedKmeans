@@ -21,7 +21,9 @@ struct Sample {
 };
 
 struct Center {
-    std::array<float, 3> feature_;  // center's position
+    std::array<float, 3> feature_;  // center's feature
+    int row_;
+    int col_;
 };
 
 /**
