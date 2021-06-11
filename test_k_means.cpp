@@ -19,9 +19,15 @@ int main(int argc, char** argv) {
     }
 //    cv::imshow("original",img);
     cv::Mat originImg = img.clone();
-
+//    cv::Mat dst1;
+//    cv::Mat dst2;
     cv::cvtColor(img,img,cv::COLOR_RGB2HSV);
-    cv::imshow("original",img);
+    cv::imshow("original",originImg);
+//    cv::pyrDown(img,dst1,cv::Size(img.cols* 0.5,img.rows* 0.5));
+//    cv::pyrUp(dst1,dst2,cv::Size(img.cols*2,img.rows*2));
+//    cv::imshow("dst2",dst2);
+    GaussianBlur(img, img, cv::Size (11, 11), 0, 0);
+
     int k = strtol(argv[2], NULL, 10);
     int iteration = strtol(argv[3], NULL, 10);
     int convergence_radius = 1e-6;

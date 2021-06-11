@@ -61,6 +61,19 @@ void Kmeans::initialize_centers() {
         i_center++;
     }
 
+//    std::array<float,3> orange{
+//        190,248,120
+//    };
+//    std::array<float,3> red{
+//            253,251,115
+//    };
+//    std::array<float,3> yellow{
+//            234,254,91
+//    };
+//    centers_[0].feature_=orange;
+//    centers_[1].feature_=red;
+//    centers_[2].feature_=yellow;
+
 }
 
 /**
@@ -205,10 +218,10 @@ inline float calc_square_distance(const std::array<float, 3>& arr1,
 
 inline float calc_square_weighted_distance(const Center& center,
                                            const Sample& sample) {
-    const float LocationWeight = 0.1;
-    const float Hweight = 2;
-    const float Sweight = 0;
-    const float Vweight = 0;
+    const float LocationWeight = 0.05;
+    const float Hweight = 2.3;
+    const float Sweight = 0.4;
+    const float Vweight = 1;
     return std::pow((center.feature_[0] - sample.feature_[0]) * Hweight, 2)
            + std::pow((center.feature_[1] - sample.feature_[1])*Sweight, 2)
            + std::pow((center.feature_[2] - sample.feature_[2])*Vweight, 2)
