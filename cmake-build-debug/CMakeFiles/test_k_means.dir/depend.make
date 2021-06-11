@@ -35,6 +35,8 @@ CMakeFiles/test_k_means.dir/test_k_means.cpp.o: /opt/homebrew/Cellar/opencv/4.5.
 CMakeFiles/test_k_means.dir/test_k_means.cpp.o: /opt/homebrew/Cellar/opencv/4.5.2_4/include/opencv4/opencv2/highgui.hpp
 CMakeFiles/test_k_means.dir/test_k_means.cpp.o: /opt/homebrew/Cellar/opencv/4.5.2_4/include/opencv4/opencv2/highgui/highgui.hpp
 CMakeFiles/test_k_means.dir/test_k_means.cpp.o: /opt/homebrew/Cellar/opencv/4.5.2_4/include/opencv4/opencv2/imgcodecs.hpp
+CMakeFiles/test_k_means.dir/test_k_means.cpp.o: /opt/homebrew/Cellar/opencv/4.5.2_4/include/opencv4/opencv2/imgproc.hpp
+CMakeFiles/test_k_means.dir/test_k_means.cpp.o: /opt/homebrew/Cellar/opencv/4.5.2_4/include/opencv4/opencv2/imgproc/segmentation.hpp
 CMakeFiles/test_k_means.dir/test_k_means.cpp.o: /opt/homebrew/Cellar/opencv/4.5.2_4/include/opencv4/opencv2/opencv_modules.hpp
 CMakeFiles/test_k_means.dir/test_k_means.cpp.o: /opt/homebrew/Cellar/opencv/4.5.2_4/include/opencv4/opencv2/videoio.hpp
 

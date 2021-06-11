@@ -1,7 +1,7 @@
 #include "k_means.h"
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>
-
+#include <opencv2/imgproc.hpp>
 int main(int argc, char** argv) {
 //    cv::Mat img = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);
     cv::Mat img = cv::imread(argv[1], cv::IMREAD_UNCHANGED);
@@ -17,10 +17,13 @@ int main(int argc, char** argv) {
         std::cout << "please use a image with 3 channels";
         std::exit(-1);
     }
-    cv::imshow("test",img);
+//    cv::imshow("original",img);
+    cv::Mat originImg = img.clone();
+
+    cv::cvtColor(img,img,cv::COLOR_RGB2HSV);
+    cv::imshow("original",img);
     int k = strtol(argv[2], NULL, 10);
     int iteration = strtol(argv[3], NULL, 10);
-
     int convergence_radius = 1e-6;
 
     Kmeans kmeans(img, k);
@@ -37,8 +40,9 @@ int main(int argc, char** argv) {
                     centers[sample.label_].feature_[channel];
         }
     }
+    cv::cvtColor(result,result,cv::COLOR_HSV2RGB);
     cv::Mat concat_img;
-    cv::hconcat(img, result, concat_img);
+    cv::hconcat(originImg, result, concat_img);
     cv::imshow("left: original image, right: kmeans result", concat_img);
     cv::waitKey(0);
 }

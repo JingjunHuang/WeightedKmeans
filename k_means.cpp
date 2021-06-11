@@ -205,12 +205,15 @@ inline float calc_square_distance(const std::array<float, 3>& arr1,
 
 inline float calc_square_weighted_distance(const Center& center,
                                            const Sample& sample) {
-    float weight = 0.1;
-    return std::pow((center.feature_[0] - sample.feature_[0]), 2)
-           + std::pow((center.feature_[1] - sample.feature_[1]), 2)
-           + std::pow((center.feature_[2] - sample.feature_[2]), 2)
-           + std::pow((center.col_ - sample.col_) * weight, 2)
-           + std::pow((center.row_ - sample.row_) * weight, 2);
+    const float LocationWeight = 0.1;
+    const float Hweight = 2;
+    const float Sweight = 0;
+    const float Vweight = 0;
+    return std::pow((center.feature_[0] - sample.feature_[0]) * Hweight, 2)
+           + std::pow((center.feature_[1] - sample.feature_[1])*Sweight, 2)
+           + std::pow((center.feature_[2] - sample.feature_[2])*Vweight, 2)
+           + std::pow((center.col_ - sample.col_) * LocationWeight, 2)
+           + std::pow((center.row_ - sample.row_) * LocationWeight, 2);
 }
 
 
