@@ -61,19 +61,6 @@ void Kmeans::initialize_centers() {
         i_center++;
     }
 
-//    std::array<float,3> orange{
-//        190,248,120
-//    };
-//    std::array<float,3> red{
-//            253,251,115
-//    };
-//    std::array<float,3> yellow{
-//            234,254,91
-//    };
-//    centers_[0].feature_=orange;
-//    centers_[1].feature_=red;
-//    centers_[2].feature_=yellow;
-
 }
 
 /**
